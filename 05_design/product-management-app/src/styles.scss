@@ -1,0 +1,25 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #FFFFFF;
+  color: #0A0A0A;
+}
+
+:root {
+  --color-primary: #030213;
+  --color-text: #0A0A0A;
+  --color-text-muted: #717182;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-bg: #FFFFFF;
+  --color-bg-input: #F3F3F5;
+  --color-delete: #D4183D;
+  --color-placeholder: #999999;
+}

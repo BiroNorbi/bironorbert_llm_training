@@ -1,0 +1,92 @@
+<div class="product-list-container">
+  <div class="container">
+    <h1 class="page-title">Product Management</h1>
+
+    <div class="toolbar">
+      <div class="search-wrapper">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6.41667" cy="6.41667" r="5.25" stroke="currentColor" stroke-width="1.16667"/>
+          <path d="M10.2084 10.2084L12.25 12.25" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round"/>
+        </svg>
+        <input type="text" class="search-input" placeholder="Search products...">
+      </div>
+      <button class="btn btn-add" (click)="addNewProduct()">
+        <span>Add Product</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 1.75V12.25" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round"/>
+          <path d="M1.75 7H12.25" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    @if (loading()) {
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Loading products...</p>
+      </div>
+    }
+
+    @if (error()) {
+      <div class="error-message">
+        <p>{{ error() }}</p>
+        <button class="btn btn-secondary" (click)="loadProducts()">Retry</button>
+      </div>
+    }
+
+    @if (!loading() && !error() && products().length === 0) {
+      <div class="empty-state">
+        <p>No products found. Start by adding a new product!</p>
+        <button class="btn btn-add" (click)="addNewProduct()">
+          Add Your First Product
+        </button>
+      </div>
+    }
+
+    @if (!loading() && !error() && products().length > 0) {
+      <div class="product-grid">
+        @for (product of products(); track product.id) {
+          <div class="product-card">
+            <h4 class="product-name">{{ product.name }}</h4>
+            
+            <div class="product-info">
+              <p class="description">
+                {{ product.description || 'No description available' }}
+              </p>
+              
+              <div class="meta-row">
+                <span class="stock-text">Stock: {{ product.stock }}</span>
+                <span class="price">${{ product.price.toFixed(2) }}</span>
+              </div>
+            </div>
+            
+            <div class="card-actions">
+              <button class="btn btn-view" (click)="viewProduct(product.id)">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.16669 7C1.16669 7 2.91669 3.5 7.00002 3.5C11.0834 3.5 12.8334 7 12.8334 7C12.8334 7 11.0834 10.5 7.00002 10.5C2.91669 10.5 1.16669 7 1.16669 7Z" stroke="currentColor" stroke-width="1.16667"/>
+                  <circle cx="7" cy="7" r="1.75" stroke="currentColor" stroke-width="1.16667"/>
+                </svg>
+                <span>View</span>
+              </button>
+              <button class="btn btn-edit" (click)="editProduct(product.id, $event)">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.16669 1.75L12.25 5.83333L4.66669 13.4167H0.583353V9.33333L8.16669 1.75Z" stroke="currentColor" stroke-width="1.16667"/>
+                  <path d="M6.41669 3.5L10.5 7.58333" stroke="currentColor" stroke-width="1.16667"/>
+                </svg>
+                <span>Edit</span>
+              </button>
+              <button class="btn btn-delete" (click)="deleteProduct(product.id, $event)">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.83331 3.5V1.75H8.16665V3.5" stroke="currentColor" stroke-width="1.16667"/>
+                  <path d="M1.75 3.5H12.25" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round"/>
+                  <path d="M2.91669 3.5V12.25C2.91669 12.7142 3.29831 13.0833 3.75002 13.0833H10.25C10.7017 13.0833 11.0834 12.7142 11.0834 12.25V3.5" stroke="currentColor" stroke-width="1.16667"/>
+                  <path d="M5.83331 6.41667V10.5" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round"/>
+                  <path d="M8.16669 6.41667V10.5" stroke="currentColor" stroke-width="1.16667" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

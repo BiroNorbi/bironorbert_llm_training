@@ -1,0 +1,55 @@
+<div class="product-detail-container">
+  @if (loading()) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Loading product...</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="error-message">
+      <p>{{ error() }}</p>
+      <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+    </div>
+  }
+
+  @if (!loading() && !error() && product()) {
+    <div class="dialog-overlay">
+      <div class="dialog">
+        <div class="dialog-header">
+          <h2>Product Details</h2>
+          <button class="close-btn" (click)="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="dialog-content">
+          <h3 class="product-title">{{ product()!.name }}</h3>
+          
+          <p class="product-description">
+            {{ product()!.description || 'No description available' }}
+          </p>
+
+          <div class="separator"></div>
+
+          <div class="info-row">
+            <span class="label">Price:</span>
+            <span class="price-value">$ {{ product()!.price.toFixed(2) }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Stock:</span>
+            <span class="value">{{ product()!.stock }} units</span>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Product ID:</span>
+            <span class="value id-value">{{ product()!.id }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

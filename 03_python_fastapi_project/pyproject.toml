@@ -1,0 +1,26 @@
+[project]
+name = "03-python-fastapi-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic",
+    "sqlmodel",
+    "databases[sqlite]",
+    "alembic",
+    "pytest",
+    "httpx",
+    "python-dotenv",
+    "dotenv",
+    "sqlalchemy",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["main", "database"]

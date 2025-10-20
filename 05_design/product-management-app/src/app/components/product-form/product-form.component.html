@@ -1,0 +1,111 @@
+<div class="product-form-container">
+  @if (loading()) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Loading product...</p>
+    </div>
+  }
+
+  @if (!loading()) {
+    <div class="dialog-overlay">
+      <div class="dialog">
+        <div class="dialog-header">
+          <h2>{{ isEditMode() ? 'Edit Product' : 'Add New Product' }}</h2>
+          <button class="close-btn" (click)="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        @if (error()) {
+          <div class="error-alert">
+            {{ error() }}
+          </div>
+        }
+
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+          <div class="form-content">
+            <div class="form-group">
+              <label for="name">Product Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                formControlName="name"
+                placeholder="Enter product name"
+                [class.invalid]="getFieldError('name')"
+              />
+              @if (getFieldError('name')) {
+                <span class="error-text">{{ getFieldError('name') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea 
+                id="description" 
+                formControlName="description"
+                placeholder="Enter product description"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="price">Price ($)</label>
+              <input 
+                type="number" 
+                id="price" 
+                formControlName="price"
+                placeholder="0.00"
+                step="0.01"
+                min="0.01"
+                [class.invalid]="getFieldError('price')"
+              />
+              @if (getFieldError('price')) {
+                <span class="error-text">{{ getFieldError('price') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="stock">Stock</label>
+              <input 
+                type="number" 
+                id="stock" 
+                formControlName="stock"
+                placeholder="0"
+                min="0"
+                [class.invalid]="getFieldError('stock')"
+              />
+              @if (getFieldError('stock')) {
+                <span class="error-text">{{ getFieldError('stock') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button 
+              type="button" 
+              class="btn btn-cancel" 
+              (click)="onCancel()"
+              [disabled]="submitting()"
+            >
+              Cancel
+            </button>
+            <button 
+              type="submit" 
+              class="btn btn-submit" 
+              [disabled]="submitting() || !productForm.valid"
+            >
+              @if (submitting()) {
+                <span class="btn-spinner"></span>
+                {{ isEditMode() ? 'Updating...' : 'Adding...' }}
+              } @else {
+                {{ isEditMode() ? 'Update Product' : 'Add Product' }}
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>
