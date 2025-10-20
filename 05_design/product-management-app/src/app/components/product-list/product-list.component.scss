@@ -189,6 +189,26 @@
     flex: 1;
   }
   
+  &.btn-add-cart {
+    width: 31.5px;
+    height: 28px;
+    padding: 0;
+    background: #10b981;
+    border: none;
+    
+    span {
+      display: none;
+    }
+    
+    svg {
+      stroke: #FFFFFF;
+    }
+    
+    &:hover {
+      background: #059669;
+    }
+  }
+  
   &.btn-delete {
     width: 31.5px;
     height: 28px;
